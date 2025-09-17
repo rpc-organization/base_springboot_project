@@ -1,0 +1,19 @@
+# 前環境共通で設定する値
+# サーバー設定
+server:
+  servlet:
+    context-path: /api
+    forward-headers-strategy: NATIVE
+# ログ設定
+logging:
+  level:
+    org:
+      springframework: WARN
+# spring設定
+spring:
+  profiles:
+    active: local
+# mybatis設定
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
