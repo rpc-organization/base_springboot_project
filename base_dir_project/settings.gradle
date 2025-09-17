@@ -1,3 +1,4 @@
 rootProject.name = 'base_dir_project'
 
 include 'rpc-api'
+include 'rpc-service'
