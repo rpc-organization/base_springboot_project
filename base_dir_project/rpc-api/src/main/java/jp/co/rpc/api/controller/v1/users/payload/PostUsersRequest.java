@@ -35,5 +35,5 @@ public class PostUsersRequest {
   @Schema(description = "登録するユーザーの年齢", requiredMode = Schema.RequiredMode.REQUIRED)
   @Range(min = 0, max = 200, message = MessageId.RANGE)
   @NotNull(message = MessageId.NOT_NULL)
-  private String age;
+  private Integer age;
 }

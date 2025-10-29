@@ -15,5 +15,5 @@ public class RegisterUsersRequestModel {
 
   private String lastName;
 
-  private String age;
+  private Integer age;
 }

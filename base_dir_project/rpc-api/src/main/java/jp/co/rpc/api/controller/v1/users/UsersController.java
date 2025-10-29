@@ -20,6 +20,8 @@ import jp.co.rpc.api.controller.v1.users.payload.PostUsersResponse;
 import jp.co.rpc.service.users.UsersService;
 import jp.co.rpc.service.users.model.GetUsersRequestModel;
 import jp.co.rpc.service.users.model.GetUsersResponseModel;
+import jp.co.rpc.service.users.model.RegisterUsersRequestModel;
+import jp.co.rpc.service.users.model.RegisterUsersResponseModel;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.http.MediaType;
@@ -156,6 +158,11 @@ public class UsersController {
   public PostUsersResponse postUsers(
       @RequestBody @Validated PostUsersRequest request) {
 
-    return PostUsersResponse.builder().userId("999").build();
+    RegisterUsersResponseModel responseModel = usersService.registerUsers(
+        RegisterUsersRequestModel.builder().age(request.getAge()).firstName(request.getFirstName())
+            .lastName(
+                request.getLastName()).build());
+
+    return PostUsersResponse.builder().userId(responseModel.getUserId()).build();
   }
 }
