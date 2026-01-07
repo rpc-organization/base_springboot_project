@@ -2,6 +2,7 @@ package jp.co.rpc.api.controller.v1.users;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import jakarta.validation.ConstraintViolation;
@@ -144,6 +145,18 @@ public class UsersControllerTest {
       // 検証.
       var expected = PostUsersResponse.builder().userId("001").build();
       assertEquals(expected, actual);
+    }
+
+    @Test
+    void 処理が異常終了する() {
+      // リクエストモデル作成.
+      var postUsersRequest = PostUsersRequest.builder().lastName("RPC")
+          .firstName("太郎").age(-1).build();
+
+      // 検証.
+      var exception = assertThrows(NumberFormatException.class,
+          () -> controller.postUsers(postUsersRequest));
+      assertEquals("年齢は正の値のみ", exception.getMessage());
     }
 
     @Test

@@ -31,6 +31,11 @@ public class UsersService {
    * @return 登録したユーザーの情報.
    */
   public RegisterUsersResponseModel registerUsers(RegisterUsersRequestModel requestModel) {
+
+    if (requestModel.getAge() < 0) {
+      throw new NumberFormatException("年齢は正の値のみ");
+    }
+
     String registeredUserID = usersLogic.registerUsers(requestModel);
 
     return RegisterUsersResponseModel.builder().userId(registeredUserID).build();

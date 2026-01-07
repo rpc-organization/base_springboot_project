@@ -158,6 +158,10 @@ public class UsersController {
   public PostUsersResponse postUsers(
       @RequestBody @Validated PostUsersRequest request) {
 
+    if (request.getAge() < 0) {
+      throw new NumberFormatException("年齢は正の値のみ");
+    }
+
     RegisterUsersResponseModel responseModel = usersService.registerUsers(
         RegisterUsersRequestModel.builder().age(request.getAge()).firstName(request.getFirstName())
             .lastName(

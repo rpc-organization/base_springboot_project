@@ -1,6 +1,7 @@
 package jp.co.rpc.service.users;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import jp.co.rpc.logic.UsersLogic;
@@ -77,6 +78,18 @@ public class UsersServiceTest {
       // 検証.
       var expected = RegisterUsersResponseModel.builder().userId("0001").build();
       assertEquals(expected, actual);
+    }
+
+    @Test
+    void 処理が異常終了する() {
+      // リクエストモデル作成.
+      var registerUsersRequestModelService = RegisterUsersRequestModel.builder().lastName("RPC")
+          .firstName("太郎").age(-1).build();
+
+      // 検証.
+      var exception = assertThrows(NumberFormatException.class,
+          () -> service.registerUsers(registerUsersRequestModelService));
+      assertEquals("年齢は正の値のみ", exception.getMessage());
     }
   }
 }
